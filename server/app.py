@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from models import db, User, Timesheet
 from flask_sqlalchemy import SQLAlchemy
+from flask_restful import Resource
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 from flask import Flask, jsonify, request, make_response
@@ -8,18 +9,19 @@ from flask_migrate import Migrate
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.express as px
-import plotly.offline as pyo
 from sqlalchemy import create_engine
 import numpy as np
 from datetime import timedelta
 from datetime import datetime
 from flask_cors import CORS
 import traceback
+from itsdangerous import URLSafeTimedSerializer
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 CORS(app)
 migrate = Migrate(app, db)
+mail = Mail(app)
 
 # Configure your Flask app and database connection here
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///timesheet.db'
@@ -29,6 +31,13 @@ app.config["JWT_HEADER_NAME"] = "Authorization"
 app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # replace with your secret key
 db.init_app(app)
 jwt = JWTManager(app)
+
+app.config['MAIL_SERVER'] = 'your-mail-server'
+app.config['MAIL_PORT'] = 'your-mail-port'
+app.config['MAIL_USERNAME'] = 'your-mail-username'
+app.config['MAIL_PASSWORD'] = 'your-mail-password'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 # Create database tables
 with app.app_context():
@@ -50,11 +59,17 @@ def login():
 # New user route
 @app.route('/users', methods=['POST'])
 def create_new_user():
+    print(request.json)
     first_name = request.json.get('first_name')
     last_name = request.json.get('last_name')
     email = request.json.get('email')
     username = request.json.get('username')
     password = request.json.get('password')
+
+    if not username or len(username) < 5:
+        return jsonify(message='Username is required and should be at least 5 characters long'), 400
+    if not password or len(password) < 8:
+        return jsonify(message='Password is required and should be at least 8 characters long'), 400
 
     user = User.query.filter_by(username=username).first()
 
@@ -68,6 +83,49 @@ def create_new_user():
     db.session.commit()
 
     return jsonify(message='New user created'), 201
+
+class ForgotPasswordResource(Resource):
+    def post(self):
+        data = request.get_json()
+        username = data.get('username') 
+
+        user = User.query.filter_by(username=username).first() 
+        if user:
+            # Ideally, you'd want to send an email with a reset password link 
+            # This is just a placeholder action
+            return {'message': 'Password reset link has been sent to your email'}
+        else:
+            return {'message': 'Email not found'}, 404
+
+class UpdatePasswordResource(Resource):
+    def patch(self):
+        data = request.get_json()
+        username = data.get('username')
+        new_password = data.get('new_password')
+
+        user = User.query.filter_by(username=username).first()
+        if user:
+            user.set_password(new_password)
+            db.session.add(user)
+            db.session.commit()
+            return {'message': 'Password updated successfully'}
+        else:
+            return {'message': 'Username not found'}, 404
+
+
+class DeleteAccountResource(Resource):
+    def post(self):
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            db.session.delete(user)
+            db.session.commit()
+            return '', 204  # Return 204 No Content without a response body
+        else:
+            return {'message': 'Invalid username or password'}, 404
 
 # Get all timesheets
 @app.route('/timesheets', methods=['GET'])
@@ -145,9 +203,18 @@ def process_heatmap_data(timesheets):
 
 @app.route('/heatmap')
 def generate_heatmap():
-    timesheets = Timesheet.query.all()
+    start_date = request.args.get('startDate')
+    end_date = request.args.get('endDate')
+
+    # Query timesheets with optional date filters
+    query = Timesheet.query
+    if start_date and end_date:
+        query = query.filter(Timesheet.date.between(start_date, end_date))
+    timesheets = query.all()
+
     heatmap_data = process_heatmap_data(timesheets)
     return jsonify(heatmap_data)
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

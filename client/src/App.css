@@ -1,0 +1,356 @@
+/* App.css */
+
+/* Color Palette */
+:root {
+  --primary-color: #254757;
+  --background-color: #f0f5f6;
+  --header-color: #445e6c;
+  --text-color: #70838c;
+  --button-color: #3a8d65;
+  --form-label-color: #074b32;
+  --form-input-color: #8ca4b4;
+  --form-submit-button-color: #53a084;
+  --form-filter-button-color: #254757;
+  --table-header-color: #445e6c;
+  --table-row-color: #f0f5f6;
+  --table-delete-button-color: #70838c;
+}
+
+/* Form styling */
+.form-container {
+  margin-bottom: 20px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Timesheet Table */
+.timesheet-table {
+  width: 90%;
+  border-collapse: collapse;
+  justify-content: center;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.timesheet-table th,
+.timesheet-table td {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.timesheet-table thead {
+  background-color: var(--table-header-color);
+  color: white;
+}
+
+.timesheet-table tbody {
+  background-color: var(--table-row-color);
+}
+
+.timesheet-table tr:nth-child(even) {
+  background-color: white;
+}
+
+.timesheet-table td {
+  border-bottom: 1px solid var(--table-row-color);
+}
+
+.timesheet-table button {
+  background-color: #254757;
+  color: #f0f5f6;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 24px;
+}
+
+.timesheet-table button:hover {
+  background-color: #63f081;
+}
+
+/* Heatmap container */
+.heatmap-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f0f5f6;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Heatmap title */
+.heatmap-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #254757;
+  margin-bottom: 10px;
+}
+
+/* Heatmap filter section */
+.heatmap-filter {
+  margin-bottom: 10px;
+}
+
+/* Heatmap filter form */
+.heatmap-filter form {
+  display: flex;
+  align-items: center;
+}
+
+/* Heatmap filter labels */
+.heatmap-filter label {
+  margin-right: 10px;
+  color: #254757;
+  font-weight: bold;
+}
+
+/* Heatmap filter inputs */
+.heatmap-filter input[type="date"] {
+  border: 1px solid #445e6c;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+/* Heatmap filter button */
+.heatmap-filter button[type="submit"] {
+  background-color: #254757;
+  color: #f0f5f6;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.heatmap-filter button:hover[type="submit"] {
+  background-color: #63f081;
+}
+
+/* Heatmap table */
+.heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 10px;
+}
+
+/* Heatmap table header */
+.heatmap-table th {
+  background-color: #254757;
+  color: #f0f5f6;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Heatmap table row label */
+.heatmap-row-label {
+  background-color: #f0f5f6;
+  color: #254757;
+  padding: 8px;
+  font-weight: bold;
+}
+
+/* Heatmap table cell */
+.heatmap-cell {
+  background-color: #53a084;
+  color: #f0f5f6;
+  padding: 8px;
+  text-align: center;
+}
+
+.form-field {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #254757;
+  margin-left: 10px;
+}
+
+.timesheet-form {
+  background-color: #8ca4b4;
+  border-radius: 5px;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top:10px;
+  padding: 5px;
+  margin-bottom: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* .form-group {
+  margin-bottom: 20px;
+} */
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.submit-button:hover {
+  background-color: #63f081;
+}
+
+.logo {
+  justify-content: center;
+  align-items: center;
+  size-adjust: 50% auto;
+}
+
+.form {
+  background-color: #8ca4b4;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.filter-form {
+  background-color: #8ca4b4;
+  border-radius: 5px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 5px;
+  margin-bottom: 50px;
+  margin-top: 10px;
+}
+
+.button-login {
+  background-color: #254757;
+  color: #f0f5f6;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 24px;
+}
+
+.button-login:hover {
+  background-color: #63f081;
+}
+
+.button-container {
+  justify-content: center;
+  align-items: center;
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #254757
+}
+
+.input-field-text {
+  display: block;
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #254757
+}
+
+.title {
+  color: #254757;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.description {
+  color: #445e6c;
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.form-label {
+  font-size: 1.2em;
+  color: #254757;
+  margin-bottom: 5px;
+  display: block;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.login-field {
+  all: unset;  /* This line resets default styles */
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1em;
+  width: 80%;
+  background-color:#f0f5f6
+}
+
+.navbar {
+  background-color: white;
+  padding: 10px;
+  font-size: 36px;
+  margin-top: -10px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.navbar-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  margin-right: 10px;
+}
+
+.navbar-link {
+  color: #254757;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.navbar-link:hover {
+  background-color: #63f081;
+  border-radius: 5px;
+}
