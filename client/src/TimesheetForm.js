@@ -193,8 +193,8 @@ const TimesheetForm = ({ timesheets, setTimesheets }) => {
               <td>{timesheet.date}</td>
               <td>{timesheet.project_number}</td>
               <td>{timesheet.project_name}</td>
-              <td>{timesheet.start_time}</td>
-              <td>{timesheet.end_time}</td>
+              <td>{convertToCivilianTime(timesheet.start_time)}</td> {/* Convert start_time to civilian time */}
+              <td>{convertToCivilianTime(timesheet.end_time)}</td> {/* Convert end_time to civilian time */}
               <td>{timesheet.duration}</td>
               <td>{timesheet.notes}</td>
               <td>
